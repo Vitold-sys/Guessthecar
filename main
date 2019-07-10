@@ -1,0 +1,767 @@
+import telebot
+import emoji
+from telebot import types
+
+bot = telebot.TeleBot("TOKEN")
+
+
+@bot.message_handler(commands=['start'])
+def send_welcome(mes):
+    smile = emoji.emojize(":iphone:", use_aliases=True)
+    bot.send_message(mes.chat.id, "Привет, босс!!! Попробуй угадать авто" + str(smile))
+
+
+@bot.message_handler(commands=['help'])
+def send_welcome(helper):
+    '''Function that do nothing'''
+    zzz = emoji.emojize(":eyes:", use_aliases=True)
+    point = emoji.emojize(":round_pushpin:", use_aliases=True)
+    bro = emoji.emojize(":sunglasses:", use_aliases=True)
+    bro1 = emoji.emojize(":fist:", use_aliases=True)
+    bro2 = emoji.emojize(":hand:", use_aliases=True)
+    bot.send_message(helper.chat.id, str(zzz) + "To start conversation use one of the commands:" + "\n" +
+                     str(point) + "/start - to cheer with bot" + "\n" +
+                     str(point) + "/game - You try to guess the car" + "\n" +
+                     "Have a nice day, bro" + str(bro) + str(bro1) + str(bro2))
+
+
+@bot.message_handler(commands=['game'])
+def inline(game):
+    '''Function Output Mark auto'''
+    intro = emoji.emojize(":small_orange_diamond:", use_aliases=True)
+    key1 = types.InlineKeyboardMarkup()
+    but1 = types.InlineKeyboardButton(text="Mercedes-benz", callback_data="Mercedes-benz")
+    but2 = types.InlineKeyboardButton(text="BMW", callback_data="BMW")
+    but3 = types.InlineKeyboardButton(text="Audi", callback_data="Audi")
+    key1.add(but1, but2, but3)
+    bot.send_message(game.chat.id, str(intro) + "Выберите марку авто?", reply_markup=key1)
+
+
+@bot.callback_query_handler(func=lambda callback: True)
+def inlin1(callback):
+    right = emoji.emojize(":collision:", use_aliases=True)
+    false = emoji.emojize(":anger:", use_aliases=True)
+    right1 = emoji.emojize(":+1:", use_aliases=True)
+    false1 = emoji.emojize(":-1:", use_aliases=True)
+    intro = emoji.emojize(":small_orange_diamond:", use_aliases=True)
+    if callback.data == "Mercedes-benz":
+        key2 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1", callback_data="1.1")
+        but2 = types.InlineKeyboardButton(text="2", callback_data="1.2")
+        but3 = types.InlineKeyboardButton(text="3", callback_data="1.3")
+        but4 = types.InlineKeyboardButton(text="4", callback_data="1.4")
+        but5 = types.InlineKeyboardButton(text="5", callback_data="1.5")
+        but6 = types.InlineKeyboardButton(text="6", callback_data="1.6")
+        but7 = types.InlineKeyboardButton(text="7", callback_data="1.7")
+        but8 = types.InlineKeyboardButton(text="8", callback_data="1.8")
+        but9 = types.InlineKeyboardButton(text="9", callback_data="1.9")
+        but10 = types.InlineKeyboardButton(text="10", callback_data="1.10")
+        but11 = types.InlineKeyboardButton(text="11", callback_data="1.11")
+        but12 = types.InlineKeyboardButton(text="12", callback_data="1.12")
+        but13 = types.InlineKeyboardButton(text="13", callback_data="1.13")
+        but14 = types.InlineKeyboardButton(text="14", callback_data="1.14")
+        but15 = types.InlineKeyboardButton(text="15", callback_data="1.15")
+        but30 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back1")
+        key2.add(but1, but2, but3, but4, but5, but6, but7, but8, but9, but10, but11, but12, but13, but14, but15, but30)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите любое число и нажмите на кнопку. ",
+                         reply_markup=key2)
+    elif callback.data == "Back1":
+        intro = emoji.emojize(":small_orange_diamond:", use_aliases=True)
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Mercedes-benz", callback_data="Mercedes-benz")
+        but2 = types.InlineKeyboardButton(text="BMW", callback_data="BMW")
+        but3 = types.InlineKeyboardButton(text="Audi", callback_data="Audi")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите марку авто?", reply_markup=key1)
+    elif callback.data == "1.1":
+        bot.send_photo(callback.message.chat.id, 'https://cloud.mail.ru/public/5gKF/2ZLtotacM')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="A - class", callback_data="A - class1")
+        but2 = types.InlineKeyboardButton(text="GLA - class", callback_data="GLA - class1")
+        but3 = types.InlineKeyboardButton(text="B - class", callback_data="B - class1")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "A - class1":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "Back":
+        key2 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1", callback_data="1.1")
+        but2 = types.InlineKeyboardButton(text="2", callback_data="1.2")
+        but3 = types.InlineKeyboardButton(text="3", callback_data="1.3")
+        but4 = types.InlineKeyboardButton(text="4", callback_data="1.4")
+        but5 = types.InlineKeyboardButton(text="5", callback_data="1.5")
+        but6 = types.InlineKeyboardButton(text="6", callback_data="1.6")
+        but7 = types.InlineKeyboardButton(text="7", callback_data="1.7")
+        but8 = types.InlineKeyboardButton(text="8", callback_data="1.8")
+        but9 = types.InlineKeyboardButton(text="9", callback_data="1.9")
+        but10 = types.InlineKeyboardButton(text="10", callback_data="1.10")
+        but11 = types.InlineKeyboardButton(text="11", callback_data="1.11")
+        but12 = types.InlineKeyboardButton(text="12", callback_data="1.12")
+        but13 = types.InlineKeyboardButton(text="13", callback_data="1.13")
+        but14 = types.InlineKeyboardButton(text="14", callback_data="1.14")
+        but15 = types.InlineKeyboardButton(text="15", callback_data="1.15")
+        but30 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back1")
+        key2.add(but1, but2, but3, but4, but5, but6, but7, but8, but9, but10, but11, but12, but13, but14, but15, but30)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите любое число и нажмите на кнопку. ",
+                         reply_markup=key2)
+    elif callback.data == "1.2":
+        bot.send_photo(callback.message.chat.id,
+                       'https://cloud.mail.ru/public/3SP8/4V9mrEujY')
+        key12 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="GLA - class", callback_data="GLA - class2")
+        but2 = types.InlineKeyboardButton(text="CLA - class", callback_data="CLA - class2")
+        but3 = types.InlineKeyboardButton(text="C - class", callback_data="C - class2")
+        key12.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key12)
+
+    elif callback.data == "C - class2":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.3":
+        bot.send_photo(callback.message.chat.id,
+                         'https://cloud.mail.ru/public/cddK/3pnZQXQJs')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="E - class", callback_data="E - class3")
+        but2 = types.InlineKeyboardButton(text="B - class", callback_data="B - class3")
+        but3 = types.InlineKeyboardButton(text="C - class", callback_data="C - class3")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "B - class3":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.4":
+        bot.send_photo(callback.message.chat.id,
+                         'https://cloud.mail.ru/public/RCiJ/4bzZgfCjk')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="E - class", callback_data="E - class4")
+        but2 = types.InlineKeyboardButton(text="B - class", callback_data="B - class4")
+        but3 = types.InlineKeyboardButton(text="C - class", callback_data="C - class4")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "E - class4":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.5":
+        bot.send_photo(callback.message.chat.id,
+                         'https://www.mercedes-benz.com/content/dam/brandhub/mercedes-benz/vehicles/passenger-cars/s-class/mercedes-benz-vehicles-s-class-w-222-s-500-selenite-grey-metallic-2560x1440-2560x1440.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="E - class", callback_data="E - class5")
+        but2 = types.InlineKeyboardButton(text="S - class", callback_data="S - class5")
+        but3 = types.InlineKeyboardButton(text="C - class", callback_data="C - class5")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "S - class5":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.6":
+        bot.send_photo(callback.message.chat.id,
+                         'https://s.auto.drom.ru/i24206/c/photos/fullsize/mercedes-benz/gla-class/mercedes-benz_gla-class_677771.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="CLA - class", callback_data="CLA - class6")
+        but2 = types.InlineKeyboardButton(text="GLE - class", callback_data="GLE - class6")
+        but3 = types.InlineKeyboardButton(text="GLA - class", callback_data="GLA - class6")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "GLA - class6":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.7":
+        bot.send_photo(callback.message.chat.id,
+                         'https://cdn.motor1.com/images/mgl/4gVRA/s1/mercedes-benz-glb.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="GLE - class", callback_data="GLE - class7")
+        but2 = types.InlineKeyboardButton(text="GLA - class", callback_data="GLA - class7")
+        but3 = types.InlineKeyboardButton(text="GLB - class", callback_data="GLB - class7")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "GLB - class7":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.8":
+        bot.send_photo(callback.message.chat.id,
+                         'https://www.mercedes-benz.com/content/dam/brandhub/mercedes-benz/vehicles/passenger-cars/glc-class/the-new-glc-the-success-model/00-Mercedes-Benz-2019-GLC-300-4MATIC-X253-Facelift-designo-selenite-grey-magno-2560x1440.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="CLA - class", callback_data="CLA - class8")
+        but2 = types.InlineKeyboardButton(text="GLC - class", callback_data="GLC - class8")
+        but3 = types.InlineKeyboardButton(text="GLB - class", callback_data="GLB - class8")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "GLC - class8":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.9":
+        bot.send_photo(callback.message.chat.id,
+                         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Mercedes-Benz_GLK_250_4MATIC_Sport-Paket_AMG_%28X_204%2C_Facelift%29_%E2%80%93_Frontansicht%2C_8._September_2013%2C_B%C3%B6sensell.jpg/1200px-Mercedes-Benz_GLK_250_4MATIC_Sport-Paket_AMG_%28X_204%2C_Facelift%29_%E2%80%93_Frontansicht%2C_8._September_2013%2C_B%C3%B6sensell.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="CLA - class", callback_data="CLA - class9")
+        but2 = types.InlineKeyboardButton(text="GLC - class", callback_data="GLC - class9")
+        but3 = types.InlineKeyboardButton(text="GLK - class", callback_data="GLK - class9")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "GLK - class9":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.14":
+        bot.send_photo(callback.message.chat.id,
+                         'https://s.auto.drom.ru/i24225/c/photos/fullsize/mercedes-benz/gle-class/mercedes-benz_gle-class_841407.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="GLE - class", callback_data="GLE - class10")
+        but2 = types.InlineKeyboardButton(text="GLC - class", callback_data="GLC - class10")
+        but3 = types.InlineKeyboardButton(text="GLK - class", callback_data="GLK - class10")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "GLE - class10":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.15":
+        bot.send_photo(callback.message.chat.id,
+                         'https://img.mercedes-benz-kiev.com/data/news/112-mercedes-benz-gls/mercedes-benz-gls-2019-2.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="GLS - class", callback_data="GLS - class11")
+        but2 = types.InlineKeyboardButton(text="GLE - class", callback_data="GLE - class11")
+        but3 = types.InlineKeyboardButton(text="GLK - class", callback_data="GLK - class11")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "GLS - class11":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Вернуться назад",
+                         reply_markup=key)
+    elif callback.data == "1.13":
+        bot.send_photo(callback.message.chat.id,
+                         'https://content.autotrader.com/content/dam/autotrader/articles/Comparisons/2019/2019MercedesBenzAClassVSCLACLass/A%20(5).jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="CLA - class", callback_data="CLA - class12")
+        but2 = types.InlineKeyboardButton(text="CLS - class", callback_data="CLS - class12")
+        but3 = types.InlineKeyboardButton(text="A - class", callback_data="A - class12")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "CLA - class12":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Вернуться назад",
+                         reply_markup=key)
+    elif callback.data == "1.12":
+        bot.send_photo(callback.message.chat.id,
+                         'https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/17q4/692996/2019-mercedes-benz-cls-class-pretty-again-plus-an-inline-six-news-car-and-driver-photo-696662-s-original.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="CLA - class", callback_data="CLA - class13")
+        but2 = types.InlineKeyboardButton(text="CLS - class", callback_data="CLS - class13")
+        but3 = types.InlineKeyboardButton(text="A - class", callback_data="A - class13")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "CLS - class13":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.11":
+        bot.send_photo(callback.message.chat.id,
+                         'https://www.mercedes-benz.ru/passengercars/mercedes-benz-cars/models/amg-gt/amg-gt-coupe/explore/design/_jcr_content/highlightcontainer/image.MQ6.0.20190114122941.jpeg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="CLA - class", callback_data="CLA - class14")
+        but2 = types.InlineKeyboardButton(text="CLS - class", callback_data="CLS - class14")
+        but3 = types.InlineKeyboardButton(text="AMG GT - class", callback_data="AMG GT - class14")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "AMG GT - class14":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "1.10":
+        bot.send_photo(callback.message.chat.id,
+                         'https://cdn.riastatic.com/photosnewr/auto/new_auto_storage/mercedes-benz-amg-gt__513576-620x465x70.jpg')
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="AMG GT 4 - class", callback_data="AMG GT 4 - class15")
+        but2 = types.InlineKeyboardButton(text="CLS - class", callback_data="CLS - class15")
+        but3 = types.InlineKeyboardButton(text="AMG GT - class", callback_data="AMG GT - class15")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key1)
+    elif callback.data == "AMG GT - class15":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+
+    elif callback.data == "BMW":
+        key2 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1", callback_data="2.1")
+        but2 = types.InlineKeyboardButton(text="2", callback_data="2.2")
+        but3 = types.InlineKeyboardButton(text="3", callback_data="2.3")
+        but4 = types.InlineKeyboardButton(text="4", callback_data="2.4")
+        but5 = types.InlineKeyboardButton(text="5", callback_data="2.5")
+        but6 = types.InlineKeyboardButton(text="6", callback_data="2.6")
+        but7 = types.InlineKeyboardButton(text="7", callback_data="2.7")
+        but8 = types.InlineKeyboardButton(text="8", callback_data="2.8")
+        but9 = types.InlineKeyboardButton(text="9", callback_data="2.9")
+        but30 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.1")
+        key2.add(but1, but2, but3, but4, but5, but6, but7, but8, but9, but30)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите любое число и нажмите на кнопку. ",
+                         reply_markup=key2)
+    elif callback.data == "Back2.1":
+        intro = emoji.emojize(":small_orange_diamond:", use_aliases=True)
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Mercedes-benz", callback_data="Mercedes-benz")
+        but2 = types.InlineKeyboardButton(text="BMW", callback_data="BMW")
+        but3 = types.InlineKeyboardButton(text="Audi", callback_data="Audi")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите марку авто?", reply_markup=key1)
+    elif callback.data == "2.1":
+        bot.send_photo(callback.message.chat.id, 'http://avtomaniya.info/uploads/posts/2018-03/1521713216_bmw_1.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1 -series", callback_data="1 -series1")
+        but2 = types.InlineKeyboardButton(text="2 -series", callback_data="2 -series1")
+        but3 = types.InlineKeyboardButton(text="3 -series", callback_data="3 -series1")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "1 -series1":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "Back2.2":
+        key2 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1", callback_data="2.1")
+        but2 = types.InlineKeyboardButton(text="2", callback_data="2.2")
+        but3 = types.InlineKeyboardButton(text="3", callback_data="2.3")
+        but4 = types.InlineKeyboardButton(text="4", callback_data="2.4")
+        but5 = types.InlineKeyboardButton(text="5", callback_data="2.5")
+        but6 = types.InlineKeyboardButton(text="6", callback_data="2.6")
+        but7 = types.InlineKeyboardButton(text="7", callback_data="2.7")
+        but8 = types.InlineKeyboardButton(text="8", callback_data="2.8")
+        but9 = types.InlineKeyboardButton(text="9", callback_data="2.9")
+        but30 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.1")
+        key2.add(but1, but2, but3, but4, but5, but6, but7, but8, but9, but30)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите любое число и нажмите на кнопку. ",
+                         reply_markup=key2)
+    elif callback.data == "2.2":
+        bot.send_photo(callback.message.chat.id, 'https://st4.zr.ru/_ah/img/R-4rUGFhoRyxMGie2tjymA=s800')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1 -series", callback_data="1 -series2")
+        but2 = types.InlineKeyboardButton(text="2 -series", callback_data="2 -series2")
+        but3 = types.InlineKeyboardButton(text="3 -series", callback_data="3 -series2")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "3 -series2":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "2.3":
+        bot.send_photo(callback.message.chat.id, 'https://fainaidea.com/wp-content/uploads/2018/08/48d4601edf2bf11c-large.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1 -series", callback_data="1 -series3")
+        but2 = types.InlineKeyboardButton(text="5 -series", callback_data="5 -series3")
+        but3 = types.InlineKeyboardButton(text="3 -series", callback_data="3 -series3")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "5 -series3":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "2.4":
+        bot.send_photo(callback.message.chat.id, 'https://i.wheelsage.org/pictures/b/bmw/750li_xdrive_individual/bmw_750li_xdrive_individual_3.jpeg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="7 -series", callback_data="7 -series4")
+        but2 = types.InlineKeyboardButton(text="5 -series", callback_data="5 -series4")
+        but3 = types.InlineKeyboardButton(text="3 -series", callback_data="3 -series4")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "7 -series4":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "2.5":
+        bot.send_photo(callback.message.chat.id, 'http://cdn.motorpage.ru/Photos/800/11035.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="X1", callback_data="X15")
+        but2 = types.InlineKeyboardButton(text="X2", callback_data="X25")
+        but3 = types.InlineKeyboardButton(text="X3", callback_data="X35")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "X15":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "2.6":
+        bot.send_photo(callback.message.chat.id, 'https://autoreview.ru/images/Article/1658/Article_165835_860_575.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="X1", callback_data="X16")
+        but2 = types.InlineKeyboardButton(text="X2", callback_data="X26")
+        but3 = types.InlineKeyboardButton(text="X3", callback_data="X36")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "X26":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "2.7":
+        bot.send_photo(callback.message.chat.id, 'https://img.drive.ru/i/0/59511e78ec05c45c2e000007.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="X1", callback_data="X17")
+        but2 = types.InlineKeyboardButton(text="X2", callback_data="X27")
+        but3 = types.InlineKeyboardButton(text="X3", callback_data="X37")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "X37":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "2.8":
+        bot.send_photo(callback.message.chat.id, 'https://cdn.riastatic.com/photosnewr/auto/newauto_photos/bmw-x4__821405-620x415x70.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="X4", callback_data="X48")
+        but2 = types.InlineKeyboardButton(text="X5", callback_data="X58")
+        but3 = types.InlineKeyboardButton(text="X3", callback_data="X38")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "X48":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "2.9":
+        bot.send_photo(callback.message.chat.id, 'https://bmw.autoua.net/media/catalog/8/3/p1758683-1528369159.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="X4", callback_data="X49")
+        but2 = types.InlineKeyboardButton(text="X5", callback_data="X59")
+        but3 = types.InlineKeyboardButton(text="X3", callback_data="X39")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                             reply_markup=key3)
+    elif callback.data == "X59":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back2.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "Audi":
+        key2 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1", callback_data="3.1")
+        but2 = types.InlineKeyboardButton(text="2", callback_data="3.2")
+        but3 = types.InlineKeyboardButton(text="3", callback_data="3.3")
+        but4 = types.InlineKeyboardButton(text="4", callback_data="3.4")
+        but5 = types.InlineKeyboardButton(text="5", callback_data="3.5")
+        but6 = types.InlineKeyboardButton(text="6", callback_data="3.6")
+        but7 = types.InlineKeyboardButton(text="7", callback_data="3.7")
+        but8 = types.InlineKeyboardButton(text="8", callback_data="3.8")
+        but9 = types.InlineKeyboardButton(text="9", callback_data="3.9")
+        but30 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.1")
+        key2.add(but1, but2, but3, but4, but5, but6, but7, but8, but9, but30)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите любое число и нажмите на кнопку. ",
+                         reply_markup=key2)
+    elif callback.data == "Back3.1":
+        intro = emoji.emojize(":small_orange_diamond:", use_aliases=True)
+        key1 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Mercedes-benz", callback_data="Mercedes-benz")
+        but2 = types.InlineKeyboardButton(text="BMW", callback_data="BMW")
+        but3 = types.InlineKeyboardButton(text="Audi", callback_data="Audi")
+        key1.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите марку авто?", reply_markup=key1)
+    elif callback.data == "3.1":
+        bot.send_photo(callback.message.chat.id, 'https://www.audi.co.nz/content/dam/nemo/models/a1/a1-sportback/my-2019/1920x1080-inline-media-gallery/1920x1080-AA1_181002.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="A1", callback_data="A11")
+        but2 = types.InlineKeyboardButton(text="A3", callback_data="A31")
+        but3 = types.InlineKeyboardButton(text="A4", callback_data="A41")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "A11":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "Back3.2":
+        key2 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="1", callback_data="3.1")
+        but2 = types.InlineKeyboardButton(text="2", callback_data="3.2")
+        but3 = types.InlineKeyboardButton(text="3", callback_data="3.3")
+        but4 = types.InlineKeyboardButton(text="4", callback_data="3.4")
+        but5 = types.InlineKeyboardButton(text="5", callback_data="3.5")
+        but6 = types.InlineKeyboardButton(text="6", callback_data="3.6")
+        but7 = types.InlineKeyboardButton(text="7", callback_data="3.7")
+        but8 = types.InlineKeyboardButton(text="8", callback_data="3.8")
+        but9 = types.InlineKeyboardButton(text="9", callback_data="3.9")
+        but30 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.1")
+        key2.add(but1, but2, but3, but4, but5, but6, but7, but8, but9, but30)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выберите любое число и нажмите на кнопку. ",
+                         reply_markup=key2)
+    elif callback.data == "3.2":
+        bot.send_photo(callback.message.chat.id, 'https://pictures.dealer.com/a/audiashevilleaoa/1140/e212bfa048000091e81407546e16bf0bx.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="A1", callback_data="A12")
+        but2 = types.InlineKeyboardButton(text="A3", callback_data="A32")
+        but3 = types.InlineKeyboardButton(text="A4", callback_data="A42")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "A32":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "3.3":
+        bot.send_photo(callback.message.chat.id, 'https://img.drive.ru/i/0/5cdad4e6ec05c46b68000050.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="A1", callback_data="A13")
+        but2 = types.InlineKeyboardButton(text="A3", callback_data="A33")
+        but3 = types.InlineKeyboardButton(text="A4", callback_data="A43")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "A43":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "3.4":
+        bot.send_photo(callback.message.chat.id, 'http://cdn.motorpage.ru/Photos/300/28ED.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="A5", callback_data="A54")
+        but2 = types.InlineKeyboardButton(text="A8", callback_data="A84")
+        but3 = types.InlineKeyboardButton(text="A6", callback_data="A64")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "A54":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "3.5":
+        bot.send_photo(callback.message.chat.id, 'https://cdn.motor1.com/images/mgl/moXkA/s1/2019-audi-a6.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="A5", callback_data="A55")
+        but2 = types.InlineKeyboardButton(text="A8", callback_data="A85")
+        but3 = types.InlineKeyboardButton(text="A6", callback_data="A65")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "A65":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "3.6":
+        bot.send_photo(callback.message.chat.id, 'https://cdn.motor1.com/images/mgl/o8K0b/s1/2019-audi-a8l-first-drive.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="A5", callback_data="A56")
+        but2 = types.InlineKeyboardButton(text="A8", callback_data="A86")
+        but3 = types.InlineKeyboardButton(text="A6", callback_data="A66")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "A86":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "3.7":
+        bot.send_photo(callback.message.chat.id, 'https://img.drive.ru/i/0/56d566fbec05c4c94f0001a2.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Q7", callback_data="Q77")
+        but2 = types.InlineKeyboardButton(text="Q5", callback_data="Q57")
+        but3 = types.InlineKeyboardButton(text="Q2", callback_data="Q27")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "Q27":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "3.8":
+        bot.send_photo(callback.message.chat.id, 'https://www.autobild.es/sites/autobild.es/public/dc/fotos/Audi-Q5-2017-C01.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Q7", callback_data="Q78")
+        but2 = types.InlineKeyboardButton(text="Q5", callback_data="Q58")
+        but3 = types.InlineKeyboardButton(text="Q2", callback_data="Q28")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "Q58":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    elif callback.data == "3.9":
+        bot.send_photo(callback.message.chat.id, 'https://a.d-cd.net/ebc4b2as-960.jpg')
+        key3 = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Q7", callback_data="Q79")
+        but2 = types.InlineKeyboardButton(text="Q5", callback_data="Q59")
+        but3 = types.InlineKeyboardButton(text="Q2", callback_data="Q29")
+        key3.add(but1, but2, but3)
+        bot.send_message(callback.message.chat.id, str(intro) + "Какого класса данная машина? ",
+                         reply_markup=key3)
+    elif callback.data == "Q79":
+        bot.send_message(callback.message.chat.id, str(right) +
+                         'Ты ответил правильно' + str(right1) + "\n" + 'Переходи к следующему')
+        key = types.InlineKeyboardMarkup()
+        but1 = types.InlineKeyboardButton(text="Вернуть назад", callback_data="Back3.2")
+        key.add(but1)
+        bot.send_message(callback.message.chat.id, str(intro) + "Выбери другую цифру и попробуй угадать авто",
+                         reply_markup=key)
+    else:
+        bot.send_message(callback.message.chat.id, str(false) +
+                         'Ты ошибся, попробуй еще' + str(false1))
+
+
+@bot.message_handler(content_types=['text'])
+
+def send_echo(message):
+    simple = message.text
+    smile = emoji.emojize(":sunglasses:", use_aliases=True)
+    point = emoji.emojize(":small_red_triangle_down:", use_aliases=True)
+    answer = str(point) + "Привет, давай сыграем в игру." + "\n" + "Выбери марку автомобиля." + "\n" + "А не пиши мне: "\
+             + simple + str(smile)
+    if simple:
+        bot.send_message(message.chat.id, answer)
+
+
+bot.polling(none_stop=True, timeout=123)
